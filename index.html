@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menyambut Usia Balig - Media Pembelajaran PAI Kelas 4 SD</title>
+    <!-- Tailwind CSS CDN for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+            color: #1e293b;
+            user-select: none;
+        }
+        
+        .bg-pattern {
+            background-image: radial-gradient(#10b981 0.75px, transparent 0.75px), radial-gradient(#10b981 0.75px, #f0fdf4 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-opacity: 0.15;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1), 0 8px 10px -6px rgba(16, 185, 129, 0.05);
+        }
+
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 8px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen flex flex-col justify-between">
+
+    <!-- Header App Navigation -->
+    <header class="bg-emerald-600 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateToPage(1)">
+                <div class="bg-white text-emerald-600 p-2 rounded-xl font-bold shadow">
+                    <i class="fa-solid fa-book-open-reader text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold leading-tight">PAI & Budi Pekerti</h1>
+                    <p class="text-xs text-emerald-100 font-medium">Kelas 4 SD • Elemen Fikih & Biologi</p>
+                </div>
+            </div>
+
+            <!-- Page Navigation Indicator -->
+            <div class="hidden md:flex items-center bg-emerald-700/60 px-4 py-1.5 rounded-full text-xs font-semibold space-x-2">
+                <span>Halaman:</span>
+                <span id="currentPageNum" class="bg-yellow-400 text-emerald-950 px-2 py-0.5 rounded-full">1</span>
+                <span>/ 13</span>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menuBtn" class="md:hidden text-white text-2xl focus:outline-none p-1" aria-label="Buka Menu Navigasi" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-emerald-800 h-2">
+            <div id="progressBar" class="bg-yellow-400 h-2 transition-all duration-300 w-[7.69%]"></div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden bg-emerald-700 px-4 py-3 text-sm space-y-2 md:hidden max-h-60 overflow-y-auto custom-scrollbar">
+            <p class="font-bold text-yellow-300 border-b border-emerald-600 pb-1">Daftar Modul Pembelajaran:</p>
+            <button onclick="navigateToPage(1)" class="block w-full text-left py-1 hover:text-yellow-200">1. Beranda Utama</button>
+            <button onclick="navigateToPage(2)" class="block w-full text-left py-1 hover:text-yellow-200">2. Tujuan Pembelajaran</button>
+            <button onclick="navigateToPage(3)" class="block w-full text-left py-1 hover:text-yellow-200">3. Apa Itu Balig & Taklif?</button>
+            <button onclick="navigateToPage(4)" class="block w-full text-left py-1 hover:text-yellow-200">4. Tanda Balig Menurut Fikih</button>
+            <button onclick="navigateToPage(5)" class="block w-full text-left py-1 hover:text-yellow-200">5. Pubertas Menurut Biologi</button>
+            <button onclick="navigateToPage(6)" class="block w-full text-left py-1 hover:text-yellow-200">6. Integrasi Fikih & Biologi</button>
+            <button onclick="navigateToPage(7)" class="block w-full text-left py-1 hover:text-yellow-200">7. Kewajiban Setelah Balig</button>
+            <button onclick="navigateToPage(8)" class="block w-full text-left py-1 hover:text-yellow-200">8. Kebersihan & Privasi Diri</button>
+            <button onclick="navigateToPage(9)" class="block w-full text-left py-1 hover:text-yellow-200">9. Permainan Benar / Salah</button>
+            <button onclick="navigateToPage(10)" class="block w-full text-left py-1 hover:text-yellow-200">10. Kuis Interaktif (15 Soal)</button>
+            <button onclick="navigateToPage(11)" class="block w-full text-left py-1 hover:text-yellow-200">11. Refleksi Pembelajaran</button>
+            <button onclick="navigateToPage(12)" class="block w-full text-left py-1 hover:text-yellow-200">12. Tantangan Kebiasaan Baik</button>
+            <button onclick="navigateToPage(13)" class="block w-full text-left py-1 hover:text-yellow-200">13. Rangkuman & Kesimpulan</button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- HALAMAN 1: BERANDA -->
+        <section id="page-1" class="page-section active">
+            <div class="bg-white rounded-3xl p-6 md:p-10 card-shadow text-center border border-emerald-100">
+                <div class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full mb-3">
+                    ✨ Kurikulum Merdeka • Kelas 4 Sekolah Dasar
+                </div>
+                <h2 class="text-2xl md:text-4xl font-extrabold text-emerald-800 mb-2 leading-tight">
+                    MENYAMBUT USIA BALIG
+                </h2>
+                <p class="text-emerald-600 font-medium text-sm md:text-base mb-6">
+                    Memahami Tanda Balig, Perubahan Tubuh, dan Kewajiban Agama
+                </p>
+
+                <!-- Hero Mascot Illustration -->
+                <div class="my-6 flex justify-center items-center space-x-4">
+                    <div class="bg-teal-50 border-2 border-teal-200 p-4 rounded-2xl flex flex-col items-center w-36 md:w-44 shadow-sm">
+                        <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center text-white text-3xl mb-2">
+                            👦🏻
+                        </div>
+                        <span class="text-xs font-bold text-teal-800">Anak Laki-Laki</span>
+                        <span class="text-[10px] text-teal-600">Siap & Bertanggung Jawab</span>
+                    </div>
+                    <div class="text-2xl font-bold text-emerald-400">+</div>
+                    <div class="bg-rose-50 border-2 border-rose-200 p-4 rounded-2xl flex flex-col items-center w-36 md:w-44 shadow-sm">
+                        <div class="w-16 h-16 bg-rose-400 rounded-full flex items-center justify-center text-white text-3xl mb-2">
+                            👧🏽
+                        </div>
+                        <span class="text-xs font-bold text-rose-800">Anak Perempuan</span>
+                        <span class="text-[10px] text-rose-600">Anggun & Mandiri</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 text-sm max-w-lg mx-auto mb-8 leading-relaxed">
+                    Selamat datang! Mari belajar bersama tentang perubahan tumbuh kembang tubuh kita dari sudut pandang <strong class="text-emerald-700">Fikih Islam</strong> dan ilmu <strong class="text-blue-700">Biologi</strong> dengan cara yang menyenangkan, sopan, dan mudah dipahami!
+                </p>
+
+                <button onclick="navigateToPage(2)" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg transform hover:-translate-y-0.5 transition duration-200 flex items-center justify-center mx-auto space-x-2">
+                    <span>Mulai Belajar Sekarang</span>
+                    <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- HALAMAN 2: TUJUAN PEMBELAJARAN -->
+        <section id="page-2" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="bg-emerald-500 text-white p-3 rounded-2xl text-xl">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Tujuan Pembelajaran Kita</h2>
+                        <p class="text-xs text-slate-500">Apa saja yang akan kita pahami hari ini?</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-start space-x-3">
+                        <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</span>
+                        <p class="text-xs md:text-sm text-slate-700">Menjelaskan arti <strong>Balig</strong> dan konsep <strong>Taklif</strong> (tanggung jawab ibadah) secara tepat.</p>
+                    </div>
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-start space-x-3">
+                        <span class="bg-emerald-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</span>
+                        <p class="text-xs md:text-sm text-slate-700">Mengenali tanda-tanda balig menurut hukum <strong>Fikih Islam</strong>.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex items-start space-x-3">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</span>
+                        <p class="text-xs md:text-sm text-slate-700">Memahami perubahan fisik dan emosi dalam masa pubertas menurut ilmu <strong>Biologi</strong>.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex items-start space-x-3">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">4</span>
+                        <p class="text-xs md:text-sm text-slate-700">Membedakan sudut pandang Fikih dan Biologi dalam memandang kedewasaan.</p>
+                    </div>
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 flex items-start space-x-3">
+                        <span class="bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">5</span>
+                        <p class="text-xs md:text-sm text-slate-700">Mengetahui kewajiban ibadah seperti salat, puasa, dan menutup aurat setelah balig.</p>
+                    </div>
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 flex items-start space-x-3">
+                        <span class="bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">6</span>
+                        <p class="text-xs md:text-sm text-slate-700">Membiasakan hidup bersih, menjaga kebersihan organ tubuh, dan menghormati privasi teman.</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(1)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(3)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Saya Siap Belajar <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 3: APA ITU BALIG? -->
+        <section id="page-3" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">1</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Apa Itu Balig dan Taklif?</h2>
+                        <p class="text-xs text-slate-500">Mengenal istilah penting dalam agama Islam</p>
+                    </div>
+                </div>
+
+                <!-- Concept Interactive Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
+                        <div class="text-3xl mb-2">🌱</div>
+                        <h3 class="font-bold text-emerald-900 text-lg mb-1">Pengertian Balig</h3>
+                        <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                            Secara bahasa, <strong>Balig</strong> artinya <em>"sampai"</em> atau <em>"cukup umur"</em>. Menurut istilah Fikih, balig adalah tahap di mana seseorang telah mencapai kedewasaan dan siap memikul tanggung jawab agama.
+                        </p>
+                    </div>
+
+                    <div class="bg-teal-50 rounded-2xl p-5 border border-teal-200">
+                        <div class="text-3xl mb-2">📜</div>
+                        <h3 class="font-bold text-teal-900 text-lg mb-1">Pengertian Taklif</h3>
+                        <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                            Orang yang sudah balig disebut <strong>Mukalaf</strong>. Ia dikenai <strong>Taklif</strong>, yaitu kewajiban untuk menjalankan perintah Allah SWT (seperti salat dan puasa) serta menjauhi larangan-Nya.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Prompt Question Box -->
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-2xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="text-amber-500 text-xl"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-sm mb-1">Pertanyaan Pemantik:</h4>
+                            <p class="text-xs text-amber-800 leading-relaxed">
+                                "Mengapa kita perlu mempelajari tanggung jawab setelah balig sejak sekarang?"
+                            </p>
+                            <p class="text-[11px] text-amber-700 mt-2">
+                                💡 <em>Jawab: Supaya saat tiba waktunya nanti, kita sudah siap, paham tata caranya, dan percaya diri melaksanakannya dengan gembira!</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(2)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(4)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Tanda Balig Fikih <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 4: TANDA BALIG menurut FIKIH -->
+        <section id="page-4" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">2</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Tanda-Tanda Balig Menurut Fikih</h2>
+                        <p class="text-xs text-slate-500">Petunjuk syariat Islam dalam menentukan kedewasaan</p>
+                    </div>
+                </div>
+
+                <!-- 3 Main Signs Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Card 1: Mimpi Basah -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="text-2xl mb-2">👦🏻 🌙</div>
+                            <h3 class="font-bold text-blue-900 text-sm mb-1">Mimpi Basah (Ihtilam)</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-2">
+                                Dialami oleh anak laki-laki (biasanya mulai usia 9 tahun ke atas). Ini adalah hal alami saat tubuh mulai dewasa.
+                            </p>
+                        </div>
+                        <span class="text-[10px] bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-semibold w-max">Khusus Laki-laki</span>
+                    </div>
+
+                    <!-- Card 2: Haid -->
+                    <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="text-2xl mb-2">👧🏽 🌸</div>
+                            <h3 class="font-bold text-rose-900 text-sm mb-1">Haid (Menstruasi)</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-2">
+                                Keluarnya darah dari rahim anak perempuan secara alami pada waktu tertentu (minimal usia 9 tahun).
+                            </p>
+                        </div>
+                        <span class="text-[10px] bg-rose-200 text-rose-800 px-2 py-0.5 rounded-full font-semibold w-max">Khusus Perempuan</span>
+                    </div>
+
+                    <!-- Card 3: Usia 15 Tahun -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="text-2xl mb-2">📅 15</div>
+                            <h3 class="font-bold text-amber-900 text-sm mb-1">Mencapai Usia 15 Tahun</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-2">
+                                Jika sampai usia 15 tahun Hijriah anak belum mengalami mimpi basah atau haid, maka ia otomatis sudah dianggap balig.
+                            </p>
+                        </div>
+                        <span class="text-[10px] bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full font-semibold w-max">Laki-laki & Perempuan</span>
+                    </div>
+                </div>
+
+                <!-- Reassuring Note Box -->
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start space-x-3">
+                    <div class="text-emerald-600 text-2xl mt-1"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <div class="text-xs text-slate-700 leading-relaxed">
+                        <strong class="text-emerald-900">Catatan Penting:</strong> Setiap anak tumbuh dengan kecepatan yang berbeda-beda! Ada yang balig lebih awal dan ada yang lebih lambat. Tidak perlu khawatir atau membandingkan diri dengan teman. Jika ada yang membingungkan, tanyakan kepada orang tua atau guru.
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(3)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(5)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Pubertas Biologi <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 5: MENGENAL PUBERTAS DALAM BIOLOGI -->
+        <section id="page-5" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-blue-100 text-blue-700 p-3 rounded-2xl text-xl font-bold">3</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Mengenal Pubertas dalam Biologi</h2>
+                        <p class="text-xs text-slate-500">Perubahan fisik dan emosional saat tubuh tumbuh dewasa</p>
+                    </div>
+                </div>
+
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                    Dalam ilmu Biologi, masa peralihan dari anak-anak menuju dewasa disebut <strong>Pubertas</strong>. Tubuh kita berubah karena dipengaruhi oleh zat alami bernama hormon pertumbuhan.
+                </p>
+
+                <!-- Interactive Accordion / Cards for Physical Changes -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Male Puberty Cards -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <h3 class="font-bold text-blue-800 text-sm mb-3 flex items-center">
+                            <i class="fa-solid fa-mars text-blue-500 mr-2"></i> Perubahan Fisik Laki-laki:
+                        </h3>
+                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                            <li>Badan bertambah tinggi dan kuat secara cepat.</li>
+                            <li>Dada terlihat lebih bidang dan membesar.</li>
+                            <li>Suara bertahap menjadi lebih berat/dalam.</li>
+                            <li>Tumbuh rambut halus di ketiak dan area tertentu.</li>
+                            <li>Kelenjar keringat lebih aktif (mudah berkeringat).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Female Puberty Cards -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <h3 class="font-bold text-rose-800 text-sm mb-3 flex items-center">
+                            <i class="fa-solid fa-venus text-rose-500 mr-2"></i> Perubahan Fisik Perempuan:
+                        </h3>
+                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                            <li>Badan bertambah tinggi dan pinggul bertambah lebar.</li>
+                            <li>Payudara berkembang secara alami.</li>
+                            <li>Tumbuh rambut halus di bagian tubuh tertentu.</li>
+                            <li>Kelenjar minyak & keringat meningkat (bisa timbul jerawat).</li>
+                            <li>Mengalami siklus menstruasi (haid).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Emotional Changes Card -->
+                <div class="bg-purple-50 border border-purple-200 rounded-2xl p-4">
+                    <h3 class="font-bold text-purple-900 text-sm mb-2 flex items-center">
+                        <i class="fa-solid fa-[#9333ea] fa-face-smile mr-2"></i> Perubahan Emosi & Perasaan:
+                    </h3>
+                    <p class="text-xs text-purple-800 leading-relaxed">
+                        Selain fisik, emosi kita juga berkembang! Terkadang suasana hati (mood) berubah-ubah, lebih ingin mandiri, atau mencari perhatian teman. Hal ini wajar dan merupakan bagian dari proses menjadi manusia dewasa yang matang.
+                    </p>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(4)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(6)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Fikih & Biologi <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 6: INTEGRASI FIKIH DAN BIOLOGI -->
+        <section id="page-6" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">4</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Perbandingan Fikih & Biologi</h2>
+                        <p class="text-xs text-slate-500">Dua sudut pandang yang saling melengkapi</p>
+                    </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-emerald-600 text-white">
+                                <th class="p-3 rounded-tl-xl font-bold">Fitur Pembeda</th>
+                                <th class="p-3 font-bold bg-emerald-700">Perspektif Fikih Islam</th>
+                                <th class="p-3 rounded-tr-xl font-bold bg-blue-700">Perspektif Biologi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 bg-slate-50">
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-700">Fokus Utama</td>
+                                <td class="p-3 text-emerald-900 bg-emerald-50/50">Hukum ibadah & taklif (kewajiban agama)</td>
+                                <td class="p-3 text-blue-900 bg-blue-50/50">Pertumbuhan fisik & organ reproduksi</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-700">Penentu Utama</td>
+                                <td class="p-3 text-emerald-900 bg-emerald-50/50">Haid, Mimpi Basah, atau Usia 15 Th.</td>
+                                <td class="p-3 text-blue-900 bg-blue-50/50">Hormon, perubahan tinggi, suara, keringat</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-700">Dampak Utama</td>
+                                <td class="p-3 text-emerald-900 bg-emerald-50/50">Mendapatkan pahala & dosa atas amalan</td>
+                                <td class="p-3 text-blue-900 bg-blue-50/50">Kesiapan organ tubuh secara alami</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Interactive Categorization Activity -->
+                <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4">
+                    <h3 class="font-bold text-teal-900 text-sm mb-2 flex items-center">
+                        <i class="fa-solid fa-shapes text-teal-600 mr-2"></i> Mini Aktivitas: Kategori Pernyataan
+                    </h3>
+                    <p class="text-xs text-slate-600 mb-3">Klik tombol untuk menentukan apakah pernyataan di bawah merupakan ranah Fikih atau Biologi!</p>
+
+                    <div id="activityBox" class="bg-white p-4 rounded-xl border border-teal-100 shadow-sm space-y-3">
+                        <p id="activityQuestion" class="font-semibold text-xs md:text-sm text-slate-800">"Menentukan batas wajib salat dan puasa bagi seseorang."</p>
+                        <div class="flex space-x-3">
+                            <button onclick="checkActivityAnswer('Fikih')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-4 py-1.5 rounded-lg text-xs transition">
+                                Fikih
+                            </button>
+                            <button onclick="checkActivityAnswer('Biologi')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-1.5 rounded-lg text-xs transition">
+                                Biologi
+                            </button>
+                        </div>
+                        <p id="activityFeedback" class="text-xs font-semibold hidden"></p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(5)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(7)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Kewajiban Balig <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 7: KEWAJIBAN SETELAH BALIG -->
+        <section id="page-7" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">5</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Kewajiban Agama (Taklif)</h2>
+                        <p class="text-xs text-slate-500">Ibadah dan perilaku yang wajib dijalankan setelah balig</p>
+                    </div>
+                </div>
+
+                <!-- Grid Interactive Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Salat -->
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 hover:shadow duration-200">
+                        <div class="flex items-center space-x-2 text-emerald-800 font-bold text-sm mb-1">
+                            <span class="text-xl">🕌</span>
+                            <h3>Salat 5 Waktu</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Wajib dikerjakan secara tertib. Dosa jika ditinggalkan dengan sengaja tanpa alasan syar'i.
+                        </p>
+                    </div>
+
+                    <!-- Puasa -->
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 hover:shadow duration-200">
+                        <div class="flex items-center space-x-2 text-emerald-800 font-bold text-sm mb-1">
+                            <span class="text-xl">🌙</span>
+                            <h3>Puasa Ramadan</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Wajib berpuasa sebulan penuh. Bagi perempuan yang haid, tidak puasa namun wajib menggantinya (qada) di hari lain.
+                        </p>
+                    </div>
+
+                    <!-- Bersuci / Mandi Wajib -->
+                    <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 hover:shadow duration-200">
+                        <div class="flex items-center space-x-2 text-teal-800 font-bold text-sm mb-1">
+                            <span class="text-xl">💧</span>
+                            <h3>Mandi Wajib (Thaharah)</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Mandi untuk bersuci dari hadas besar setelah selesai haid atau mimpi basah agar sah beribadah kembali.
+                        </p>
+                    </div>
+
+                    <!-- Menutup Aurat -->
+                    <div class="bg-teal-50 border border-teal-200 rounded-2xl p-4 hover:shadow duration-200">
+                        <div class="flex items-center space-x-2 text-teal-800 font-bold text-sm mb-1">
+                            <span class="text-xl">👕</span>
+                            <h3>Menutup Aurat & Akhlak</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Menjaga pakaian sopan sesuai syariat, menjaga pandangan, lisan dari perkataan buruk, serta menghormati orang lain.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Special Note on Haid -->
+                <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 text-xs text-rose-900 leading-relaxed">
+                    <strong class="font-bold">Ketentuan Khusus Perempuan Haid:</strong><br>
+                    Saat haid, perempuan dilarang salat dan berpuasa. Salat yang ditinggalkan saat haid <em>tidak perlu diqada</em> (diganti), sedangkan puasa Ramadan <em>wajib diqada</em> di hari lain setelah suci.
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(6)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(8)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Kebersihan & Privasi <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 8: MENJAGA KEBERSIHAN DAN PRIVASI -->
+        <section id="page-8" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">6</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Kebersihan & Menjaga Privasi Diri</h2>
+                        <p class="text-xs text-slate-500">Membiasakan hidup bersih, sopan, dan saling menghormati</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 space-y-2">
+                        <h3 class="font-bold text-emerald-900 text-xs md:text-sm flex items-center">
+                            <i class="fa-solid fa-soap text-emerald-600 mr-2"></i> Kebiasaan Sehat & Clean
+                        </h3>
+                        <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                            <li>Mandi teratur 2 kali sehari dengan sabun.</li>
+                            <li>Mengganti pakaian dalam secara teratur.</li>
+                            <li>Menjaga kebersihan pembalut bagi perempuan haid.</li>
+                            <li>Memakai pakaian yang bersih dan wangi.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
+                        <h3 class="font-bold text-amber-900 text-xs md:text-sm flex items-center">
+                            <i class="fa-solid fa-user-shield text-amber-600 mr-2"></i> Menjaga Privasi & Kehormatan
+                        </h3>
+                        <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                            <li>Tidak mengejek perubahan bentuk tubuh teman.</li>
+                            <li>Tidak menyebarkan cerita rahasia atau foto pribadi teman.</li>
+                            <li>Menjaga batas ketertutupan aurat di depan publik.</li>
+                            <li>Bertanya kepada guru / orang tua jika ada yang membingungkan.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(7)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(9)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Main Permainan B/S <i class="fa-solid fa-gamepad ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 9: PERMAINAN BENAR ATAU SALAH -->
+        <section id="page-9" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-amber-100 text-amber-700 p-3 rounded-2xl text-xl font-bold">🎮</div>
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold text-slate-800">Permainan Benar atau Salah</h2>
+                            <p class="text-xs text-slate-500">Uji pemahamanmu secara cepat!</p>
+                        </div>
+                    </div>
+                    <span id="tfScoreBadge" class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">
+                        Skor: 0
+                    </span>
+                </div>
+
+                <div id="tfGameCard" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center space-y-4">
+                    <p id="tfQuestionIndex" class="text-xs font-bold text-emerald-600">Pernyataan 1 dari 8</p>
+                    <h3 id="tfQuestionText" class="text-sm md:text-base font-bold text-slate-800 min-h-[50px] flex items-center justify-center">
+                        "Balig adalah masa ketika seorang muslim mulai wajib menjalankan syariat agama."
+                    </h3>
+
+                    <div class="flex justify-center space-x-4 pt-2">
+                        <button onclick="submitTFAnswer(true)" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl shadow text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-check"></i> <span>BENAR</span>
+                        </button>
+                        <button onclick="submitTFAnswer(false)" class="bg-rose-500 hover:bg-rose-600 text-white font-bold px-6 py-2.5 rounded-xl shadow text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-xmark"></i> <span>SALAH</span>
+                        </button>
+                    </div>
+
+                    <div id="tfFeedback" class="hidden p-3 rounded-xl text-xs font-medium border text-left"></div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(8)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(10)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Kuis Evaluasi (15 Soal) <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 10: KUIS INTERAKTIF 15 SOAL -->
+        <section id="page-10" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <!-- Quiz Screen Header -->
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">📝</div>
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold text-slate-800">Kuis Evaluasi Balig</h2>
+                            <p class="text-xs text-slate-500">15 Soal Pilihan Ganda Interaktif</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span id="quizProgressNum" class="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">Soal 1 / 15</span>
+                    </div>
+                </div>
+
+                <!-- Quiz Questions Box -->
+                <div id="quizQuestionBox" class="space-y-4">
+                    <h3 id="quizQuestionTitle" class="font-bold text-slate-800 text-sm md:text-base leading-snug">
+                        1. Secara bahasa, kata "Balig" memiliki arti...
+                    </h3>
+
+                    <div id="quizOptionsContainer" class="space-y-2.5">
+                        <!-- Dynamic Options rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Quiz Navigation Controls -->
+                <div id="quizControls" class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button id="prevQuizBtn" onclick="navigateQuiz(-1)" class="bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs md:text-sm disabled:opacity-50">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> Sebelumnya
+                    </button>
+                    <button id="nextQuizBtn" onclick="navigateQuiz(1)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-xl text-xs md:text-sm">
+                        Berikutnya <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Quiz Score Summary Container (Initially Hidden) -->
+                <div id="quizResultBox" class="hidden space-y-6 text-center py-4">
+                    <div class="bg-emerald-50 rounded-3xl p-6 border border-emerald-200">
+                        <div class="text-4xl mb-2">🏆</div>
+                        <h3 class="text-xl font-extrabold text-emerald-900 mb-1">Hasil Evaluasi Belajar</h3>
+                        <p class="text-xs text-emerald-700 mb-4">Selamat! Kamu telah menyelesaikan seluruh soal kuis.</p>
+                        
+                        <div class="text-3xl font-black text-emerald-600 mb-2" id="quizScoreText">Skor: 100 / 100</div>
+                        <p class="text-xs text-slate-600" id="quizCorrectCountText">Jawaban Benar: 15 dari 15 Soal</p>
+                    </div>
+
+                    <!-- Pembahasan Soal Detailed List -->
+                    <div class="text-left space-y-3">
+                        <h4 class="font-bold text-slate-800 text-sm">Pembahasan Jawaban Lengkap:</h4>
+                        <div id="quizDiscussionContainer" class="space-y-3 max-h-72 overflow-y-auto custom-scrollbar pr-2">
+                            <!-- Populated dynamically by script -->
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center space-x-4 pt-4">
+                        <button onclick="restartQuiz()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center space-x-1">
+                            <i class="fa-solid fa-rotate-right"></i> <span>Ulangi Kuis</span>
+                        </button>
+                        <button onclick="navigateToPage(11)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs flex items-center space-x-1">
+                            <span>Lanjut ke Refleksi</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 11: REFLEKSI PEMBELAJARAN -->
+        <section id="page-11" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-teal-100 text-teal-700 p-3 rounded-2xl text-xl font-bold">💭</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Refleksi Diri</h2>
+                        <p class="text-xs text-slate-500">Ungkapkan pemahaman dan perasaanmu setelah belajar</p>
+                    </div>
+                </div>
+
+                <form onsubmit="event.preventDefault(); saveReflection();" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">
+                            1. Apa hal baru yang paling berkesan yang kamu pelajari hari ini?
+                        </label>
+                        <textarea id="refInput1" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-400 focus:outline-none" placeholder="Tuliskan di sini..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">
+                            2. Kewajiban ibadah apa yang akan kamu persiapkan dengan lebih giat?
+                        </label>
+                        <textarea id="refInput2" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-400 focus:outline-none" placeholder="Tuliskan di sini..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">
+                            3. Bagaimana caramu menghormati teman yang sedang mengalami masa tumbuh kembang?
+                        </label>
+                        <textarea id="refInput3" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-400 focus:outline-none" placeholder="Tuliskan di sini..."></textarea>
+                    </div>
+
+                    <button type="button" onclick="saveReflection()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-2 rounded-xl text-xs shadow transition">
+                        <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Catatan Refleksi
+                    </button>
+                    <span id="refSaveStatus" class="text-xs text-emerald-600 font-semibold ml-2 hidden">✓ Tersimpan sementara!</span>
+                </form>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(10)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(12)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lanjut: Tantangan Kebiasaan <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 12: TANTANGAN KEBIASAAN BAIK -->
+        <section id="page-12" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 space-y-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <div class="bg-amber-100 text-amber-700 p-3 rounded-2xl text-xl font-bold">⭐</div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800">Tantangan Kebiasaan Baik</h2>
+                        <p class="text-xs text-slate-500">Centang komitmen kebiasaan baikmu sehari-hari!</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3" id="habitChecklist">
+                    <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-emerald-50/50 cursor-pointer transition">
+                        <input type="checkbox" onchange="updateHabitProgress()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-400">
+                        <span class="text-xs text-slate-700 font-medium">Saya selalu menjaga kebersihan tubuh dan pakaian secara rutin.</span>
+                    </label>
+
+                    <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-emerald-50/50 cursor-pointer transition">
+                        <input type="checkbox" onchange="updateHabitProgress()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-400">
+                        <span class="text-xs text-slate-700 font-medium">Saya berusaha melaksanakan salat 5 waktu dengan tertib.</span>
+                    </label>
+
+                    <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-emerald-50/50 cursor-pointer transition">
+                        <input type="checkbox" onchange="updateHabitProgress()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-400">
+                        <span class="text-xs text-slate-700 font-medium">Saya menghormati perubahan tubuh dan tidak pernah mengejek teman.</span>
+                    </label>
+
+                    <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-emerald-50/50 cursor-pointer transition">
+                        <input type="checkbox" onchange="updateHabitProgress()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-400">
+                        <span class="text-xs text-slate-700 font-medium">Saya tidak menyebarkan cerita rahasia atau foto pribadi orang lain.</span>
+                    </label>
+
+                    <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-emerald-50/50 cursor-pointer transition">
+                        <input type="checkbox" onchange="updateHabitProgress()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-400">
+                        <span class="text-xs text-slate-700 font-medium">Saya berani bertanya kepada orang tua / guru jika merasa bingung atau tidak nyaman.</span>
+                    </label>
+                </div>
+
+                <!-- Badge Reward Box -->
+                <div id="habitBadgeBox" class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-center hidden">
+                    <div class="text-3xl mb-1">🏅</div>
+                    <h4 class="font-bold text-amber-900 text-xs md:text-sm">Hebat! Kamu Siap Menjadi Anak Shalih/Shalihah Berakhlak Mulia!</h4>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button onclick="navigateToPage(11)" class="text-slate-500 font-semibold text-sm px-4 py-2 hover:text-slate-700">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                    <button onclick="navigateToPage(13)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                        Lihat Kesimpulan <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 13: KESIMPULAN PEMBELAJARAN -->
+        <section id="page-13" class="page-section">
+            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 text-center space-y-6">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-sm">
+                    🎓
+                </div>
+
+                <h2 class="text-2xl font-extrabold text-emerald-800">Rangkuman Pembelajaran</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                        <h3 class="font-bold text-emerald-900 text-xs mb-1">1. Fikih Balig</h3>
+                        <p class="text-[11px] text-slate-600">
+                            Balig menandai mulainya kewajiban ibadah (taklif). Tanda utamanya: mimpi basah, haid, atau genap usia 15 tahun Hijriah.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                        <h3 class="font-bold text-blue-900 text-xs mb-1">2. Pubertas Biologi</h3>
+                        <p class="text-[11px] text-slate-600">
+                            Pubertas adalah proses pertumbuhan fisik dan emosi alami manusia yang dipengaruhi oleh hormon.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                        <h3 class="font-bold text-amber-900 text-xs mb-1">3. Tanggung Jawab</h3>
+                        <p class="text-[11px] text-slate-600">
+                            Wajib menjaga salat, berpuasa, bersuci/mandi wajib, menutup aurat, serta menjaga kebersihan & sopan santun.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-center items-center gap-3">
+                    <button onclick="navigateToPage(1)" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-2xl text-xs">
+                        <i class="fa-solid fa-house mr-1"></i> Kembali ke Beranda
+                    </button>
+                    <button onclick="alert('MasyaAllah! Kamu telah menyelesaikan seluruh rangkaian media pembelajaran ini. Selamat!')" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-2xl text-xs shadow-lg">
+                        <i class="fa-solid fa-circle-check mr-1"></i> Selesai Belajar
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- App Footer -->
+    <footer class="bg-emerald-900 text-emerald-200 text-xs py-4 text-center mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-medium">Media Pembelajaran Interaktif PAI & Budi Pekerti Kelas IV SD</p>
+            <p class="text-[10px] text-emerald-400 mt-0.5">Integrasi Fikih Islam & Biologi • Sesuai Kurikulum Merdeka</p>
+        </div>
+    </footer>
+
+    <script>
+        /* STATE MANAGEMENT */
+        let currentPage = 1;
+        const totalPages = 13;
+
+        /* ACTIVITY PAGE 6 STATE */
+        const activityData = [
+            { question: "Menentukan batas wajib salat dan puasa bagi seseorang.", answer: "Fikih" },
+            { question: "Menjelaskan perubahan hormon, tinggi badan, dan suara membesar.", answer: "Biologi" },
+            { question: "Membahas tentang tanda haid, mimpi basah, atau batas usia 15 tahun.", answer: "Fikih" },
+            { question: "Memahami pertumbuhan kelenjar keringat dan jerawat pada kulit.", answer: "Biologi" }
+        ];
+        let currentActivityIndex = 0;
+
+        /* TRUE / FALSE GAME DATA (PAGE 9) */
+        const tfQuestions = [
+            { text: "Balig adalah masa ketika seorang muslim mulai wajib menjalankan syariat agama (taklif).", correct: true, explain: "Benar! Balig artinya telah cukup umur dan dikenai kewajiban agama." },
+            { text: "Semua anak pasti mengalami tanda balig pada usia yang persis sama.", correct: false, explain: "Salah! Setiap anak tumbuh dan berkembang dengan kecepatan berbeda-beda." },
+            { text: "Perempuan yang sedang haid wajib mengganti (mengqada) salat yang ditinggalkan.", correct: false, explain: "Salah! Salat yang ditinggalkan saat haid tidak perlu diqada. Yang diqada hanya puasa Ramadan." },
+            { text: "Bertambah tinggi dan timbulnya keringat adalah contoh pubertas dalam ilmu Biologi.", correct: true, explain: "Benar! Ini adalah pertumbuhan fisik alami tubuh." },
+            { text: "Kita boleh mengejek suara teman laki-laki yang mulai serak atau berat.", correct: false, explain: "Salah! Kita harus saling menghormati dan tidak boleh mengejek fisik teman." },
+            { text: "Mandi wajib dilakukan untuk bersuci dari hadas besar setelah haid atau mimpi basah.", correct: true, explain: "Benar! Mandi wajib mensucikan diri agar sah kembali untuk salat." },
+            { text: "Batas maksimal usia balig menurut fikih jika belum haid/mimpi basah adalah 15 tahun Hijriah.", correct: true, explain: "Benar! Jika genap 15 tahun Hijriah, otomatis dianggap balig." },
+            { text: "Jika merasa bingung dengan perubahan tubuh, sebaiknya bertanya kepada orang tua atau guru.", correct: true, explain: "Benar! Orang tua dan guru dapat memberikan arahan yang tepat dan aman." }
+        ];
+        let currentTFIndex = 0;
+        let tfScore = 0;
+
+        /* 15 MULTIPLE CHOICE QUIZ DATA (PAGE 10) */
+        const quizData = [
+            { q: "Secara bahasa, kata 'Balig' berarti...", options: ["A. Kecil", "B. Sampai / Cukup Umur", "C. Pintar", "D. Kuat"], correct: 1, explanation: "Secara bahasa balig artinya 'sampai' atau telah mencapai usia cukup umur." },
+            { q: "Seseorang yang telah balig dan dikenai kewajiban menjalankan aturan agama disebut...", options: ["A. Mukalaf", "B. Muazin", "C. Mualaf", "D. Mustahiq"], correct: 0, explanation: "Mukalaf adalah istilah untuk orang dewasa yang dikenai taklif (kewajiban agama)." },
+            { q: "Tanda balig menurut fikih yang khusus dialami oleh anak laki-laki adalah...", options: ["A. Haid", "B. Suara melengking", "C. Mimpi Basah (Ihtilam)", "D. Tumbuh gigi"], correct: 2, explanation: "Mimpi basah (ihtilam) merupakan tanda balig utama bagi laki-laki." },
+            { q: "Tanda balig menurut fikih yang khusus dialami oleh anak perempuan adalah...", options: ["A. Haid (Menstruasi)", "B. Suara membesar", "C. Tumbuh kumis", "D. Mimpi Basah"], correct: 0, explanation: "Haid (menstruasi) adalah tanda alami balig bagi anak perempuan." },
+            { q: "Bila sampai usia tertentu seseorang belum mimpi basah atau haid, maka ia dianggap balig saat berusia...", options: ["A. 10 tahun", "B. 12 tahun", "C. 15 tahun Hijriah", "D. 20 tahun"], correct: 2, explanation: "Batas maksimal usia balig menurut fikih adalah 15 tahun Hijriah." },
+            { q: "Masa perubahan fisik dan emosi anak menuju dewasa dalam ilmu Biologi disebut...", options: ["A. Balig", "B. Pubertas", "C. Balita", "D. Lansia"], correct: 1, explanation: "Pubertas adalah proses biologis kematangan fisik dan organ reproduksi." },
+            { q: "Berikut ini yang merupakan perubahan fisik anak laki-laki pada masa pubertas adalah...", options: ["A. Pinggul membesar", "B. Suara bertahap membesar/berat", "C. Mengalami haid", "D. Tumbuh payudara"], correct: 1, explanation: "Suara anak laki-laki menjadi lebih berat/dalam karena perkembangan pita suara." },
+            { q: "Berikut ini yang merupakan perubahan fisik anak perempuan saat pubertas adalah...", options: ["A. Suara menjadi sangat berat", "B. Dada membidang", "C. Pinggul membesar & perkembangan payudara", "D. Tumbuh kumis tebal"], correct: 2, explanation: "Perempuan mengalami pelebaran pinggul dan perkembangan payudara secara alami." },
+            { q: "Mengapa setiap anak mengalami masa pubertas pada usia yang berbeda-beda?", options: ["A. Karena ada anak yang nakal", "B. Karena laju pertumbuhan & hormon setiap anak unik", "C. Karena salah makan", "D. Karena tidak pernah berolahraga"], correct: 1, explanation: "Tumbuh kembang dipengaruhi oleh hormon dan genetik yang berbeda pada setiap orang." },
+            { q: "Hukum melaksanakan salat fardu 5 waktu bagi orang yang sudah balig adalah...", options: ["A. Sunah", "B. Wajib (Fardu 'Ain)", "C. Makruh", "D. Mubah"], correct: 1, explanation: "Salat 5 waktu hukumnya wajib bagi setiap orang yang telah balig (mukalaf)." },
+            { q: "Bagaimana hukum puasa Ramadan bagi perempuan yang sedang mengalami haid?", options: ["A. Wajib berpuasa", "B. Haram berpuasa & wajib mengganti (qada) di hari lain", "C. Boleh memilih", "D. Wajib bayar denda saja"], correct: 1, explanation: "Perempuan haid dilarang berpuasa, namun wajib mengganti puasanya setelah suci." },
+            { q: "Ibadah yang dilakukan untuk bersuci dari hadas besar setelah mimpi basah atau haid dinamakan...", options: ["A. Wudu", "B. Tayamum", "C. Mandi Wajib (Thaharah)", "D. Cuci muka"], correct: 2, explanation: "Mandi wajib dilakukan untuk menyucikan seluruh tubuh dari hadas besar." },
+            { q: "Salah satu contoh kewajiban berpakaian bagi muslim/muslimah setelah balig adalah...", options: ["A. Memakai pakaian mahal", "B. Menutup Aurat dengan sopan", "C. Memakai pakaian ketat", "D. Bebas memakai apa saja"], correct: 1, explanation: "Menutup aurat adalah kewajiban agama untuk menjaga kehormatan diri." },
+            { q: "Sikap yang benar jika melihat teman mengalami perubahan suara atau bentuk tubuh adalah...", options: ["A. Mengejeknya di depan kelas", "B. Menghormati dan tidak membeda-bedakan", "C. Tertawa keras", "D. Menyebarkan fotonya"], correct: 1, explanation: "Kita harus menghormati setiap proses tumbuh kembang teman tanpa mengejek." },
+            { q: "Jika kamu merasa bingung, cemas, atau khawatir dengan perubahan tubuhmu, kamu harus...", options: ["A. Dipendam sendiri", "B. Bertanya kepada orang tua, guru, atau dokter", "C. Takut dan menangis", "D. Cari kabar bohong di internet"], correct: 1, explanation: "Orang tua dan guru adalah sumber informasi terpercaya dan aman untuk berdiskusi." }
+        ];
+
+        let userAnswers = new Array(quizData.length).fill(null);
+        let currentQuizIndex = 0;
+
+        /* NAVIGATION LOGIC */
+        function navigateToPage(pageNum) {
+            if (pageNum < 1 || pageNum > totalPages) return;
+
+            // Hide previous active page
+            const currentSec = document.getElementById(`page-${currentPage}`);
+            if (currentSec) currentSec.classList.remove('active');
+
+            // Show new page
+            currentPage = pageNum;
+            const newSec = document.getElementById(`page-${currentPage}`);
+            if (newSec) newSec.classList.add('active');
+
+            // Update Header Progress
+            document.getElementById('currentPageNum').innerText = currentPage;
+            const progressPercent = (currentPage / totalPages) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            // Hide Mobile Menu if open
+            document.getElementById('mobileMenu').classList.add('hidden');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Initialize Page-Specific Elements
+            if (currentPage === 9) renderTFQuestion();
+            if (currentPage === 10) renderQuizQuestion();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        /* PAGE 6 MINI ACTIVITY LOGIC */
+        function checkActivityAnswer(selectedCategory) {
+            const currentItem = activityData[currentActivityIndex];
+            const feedbackEl = document.getElementById('activityFeedback');
+            feedbackEl.classList.remove('hidden', 'text-emerald-600', 'text-rose-600');
+
+            if (selectedCategory === currentItem.answer) {
+                feedbackEl.innerText = `✓ Tepat sekali! "${currentItem.question}" adalah sudut pandang ${currentItem.answer}.`;
+                feedbackEl.classList.add('text-emerald-600');
+            } else {
+                feedbackEl.innerText = `✕ Kurang tepat. Jawaban yang benar adalah ${currentItem.answer}.`;
+                feedbackEl.classList.add('text-rose-600');
+            }
+
+            // Advance to next after short delay
+            setTimeout(() => {
+                currentActivityIndex = (currentActivityIndex + 1) % activityData.length;
+                document.getElementById('activityQuestion').innerText = `"${activityData[currentActivityIndex].question}"`;
+                feedbackEl.classList.add('hidden');
+            }, 2500);
+        }
+
+        /* PAGE 9 TRUE/FALSE GAME LOGIC */
+        function renderTFQuestion() {
+            const item = tfQuestions[currentTFIndex];
+            document.getElementById('tfQuestionIndex').innerText = `Pernyataan ${currentTFIndex + 1} dari ${tfQuestions.length}`;
+            document.getElementById('tfQuestionText').innerText = `"${item.text}"`;
+            document.getElementById('tfFeedback').classList.add('hidden');
+            document.getElementById('tfScoreBadge').innerText = `Skor: ${tfScore}`;
+        }
+
+        function submitTFAnswer(userChoice) {
+            const item = tfQuestions[currentTFIndex];
+            const feedbackEl = document.getElementById('tfFeedback');
+            feedbackEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800', 'border-emerald-300', 'border-rose-300');
+
+            if (userChoice === item.correct) {
+                tfScore += 10;
+                feedbackEl.innerText = `✓ Benar! ${item.explain}`;
+                feedbackEl.classList.add('bg-emerald-100', 'text-emerald-800', 'border-emerald-300');
+            } else {
+                feedbackEl.innerText = `✕ Kurang Tepat. ${item.explain}`;
+                feedbackEl.classList.add('bg-rose-100', 'text-rose-800', 'border-rose-300');
+            }
+
+            document.getElementById('tfScoreBadge').innerText = `Skor: ${tfScore}`;
+
+            setTimeout(() => {
+                currentTFIndex++;
+                if (currentTFIndex < tfQuestions.length) {
+                    renderTFQuestion();
+                } else {
+                    document.getElementById('tfGameCard').innerHTML = `
+                        <div class="py-4 space-y-3">
+                            <div class="text-3xl">🎉</div>
+                            <h3 class="font-bold text-slate-800">Permainan Selesai!</h3>
+                            <p class="text-xs text-slate-600">Skor Akhir Permainanmu: <strong class="text-emerald-600 text-sm">${tfScore} Poin</strong></p>
+                            <button onclick="currentTFIndex=0; tfScore=0; renderTFQuestion();" class="bg-amber-500 text-white font-bold px-4 py-2 rounded-xl text-xs">Main Lagi</button>
+                        </div>
+                    `;
+                }
+            }, 2200);
+        }
+
+        /* PAGE 10 QUIZ LOGIC */
+        function renderQuizQuestion() {
+            const quizItem = quizData[currentQuizIndex];
+            document.getElementById('quizProgressNum').innerText = `Soal ${currentQuizIndex + 1} / ${quizData.length}`;
+            document.getElementById('quizQuestionTitle').innerText = `${currentQuizIndex + 1}. ${quizItem.q}`;
+
+            const container = document.getElementById('quizOptionsContainer');
+            container.innerHTML = '';
+
+            quizItem.options.forEach((opt, idx) => {
+                const isSelected = userAnswers[currentQuizIndex] === idx;
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left text-xs md:text-sm p-3.5 rounded-xl border transition flex items-center justify-between ${
+                    isSelected 
+                    ? 'bg-emerald-100 border-emerald-500 font-bold text-emerald-900 shadow-sm' 
+                    : 'bg-slate-50 border-slate-200 hover:bg-emerald-50/50 text-slate-700'
+                }`;
+                btn.onclick = () => selectQuizOption(idx);
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    ${isSelected ? '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>' : '<i class="fa-regular fa-circle text-slate-300 text-base"></i>'}
+                `;
+                container.appendChild(btn);
+            });
+
+            // Update Nav Buttons State
+            document.getElementById('prevQuizBtn').disabled = (currentQuizIndex === 0);
+            
+            if (currentQuizIndex === quizData.length - 1) {
+                document.getElementById('nextQuizBtn').innerHTML = `Selesai Kuis <i class="fa-solid fa-check-double ml-1"></i>`;
+            } else {
+                document.getElementById('nextQuizBtn').innerHTML = `Berikutnya <i class="fa-solid fa-chevron-right ml-1"></i>`;
+            }
+        }
+
+        function selectQuizOption(optionIndex) {
+            userAnswers[currentQuizIndex] = optionIndex;
+            renderQuizQuestion();
+        }
+
+        function navigateQuiz(dir) {
+            // Validation: Must answer before proceeding forward
+            if (dir === 1 && userAnswers[currentQuizIndex] === null) {
+                alert("Silakan pilih salah satu jawaban terlebih dahulu sebelum melanjutkan!");
+                return;
+            }
+
+            if (dir === 1 && currentQuizIndex === quizData.length - 1) {
+                finishQuiz();
+                return;
+            }
+
+            currentQuizIndex += dir;
+            renderQuizQuestion();
+        }
+
+        function finishQuiz() {
+            let correctCount = 0;
+            quizData.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / quizData.length) * 100);
+
+            // Hide Question Box & Controls
+            document.getElementById('quizQuestionBox').classList.add('hidden');
+            document.getElementById('quizControls').classList.add('hidden');
+
+            // Show Results
+            const resultBox = document.getElementById('quizResultBox');
+            resultBox.classList.remove('hidden');
+
+            document.getElementById('quizScoreText').innerText = `Skor: ${score} / 100`;
+            document.getElementById('quizCorrectCountText').innerText = `Jawaban Benar: ${correctCount} dari ${quizData.length} Soal`;
+
+            // Build Discussion List
+            const discussContainer = document.getElementById('quizDiscussionContainer');
+            discussContainer.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `p-3 rounded-xl border text-xs space-y-1 ${
+                    isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'
+                }`;
+                itemDiv.innerHTML = `
+                    <div class="font-bold text-slate-800">${idx + 1}. ${q.q}</div>
+                    <div class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'} font-semibold">
+                        Jawabanmu: ${userAns !== null ? q.options[userAns] : 'Belum Dijawab'} ${isCorrect ? '✓' : '✕'}
+                    </div>
+                    ${!isCorrect ? `<div class="text-emerald-800 font-semibold">Jawaban Benar: ${q.options[q.correct]}</div>` : ''}
+                    <div class="text-slate-600 text-[11px] bg-white/70 p-2 rounded-lg mt-1">💡 <em>${q.explanation}</em></div>
+                `;
+                discussContainer.appendChild(itemDiv);
+            });
+        }
+
+        function restartQuiz() {
+            userAnswers = new Array(quizData.length).fill(null);
+            currentQuizIndex = 0;
+
+            document.getElementById('quizQuestionBox').classList.remove('hidden');
+            document.getElementById('quizControls').classList.remove('hidden');
+            document.getElementById('quizResultBox').classList.add('hidden');
+
+            renderQuizQuestion();
+        }
+
+        /* PAGE 11 REFLECTION STORAGE */
+        function saveReflection() {
+            const status = document.getElementById('refSaveStatus');
+            status.classList.remove('hidden');
+            setTimeout(() => status.classList.add('hidden'), 3000);
+        }
+
+        /* PAGE 12 HABIT PROGRESS */
+        function updateHabitProgress() {
+            const checkboxes = document.querySelectorAll('#habitChecklist input[type="checkbox"]');
+            let checkedNum = 0;
+            checkboxes.forEach(cb => { if (cb.checked) checkedNum++; });
+
+            const badge = document.getElementById('habitBadgeBox');
+            if (checkedNum === checkboxes.length) {
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        window.onload = function() {
+            navigateToPage(1);
+        };
+    </script>
+</body>
+</html>
